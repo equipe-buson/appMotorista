@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">BusON|Mototista</string>
+
+    <string name="title_activity_dados">Map</string>
+    <string-array name="linha">
+        <item>Terminal - Bela vista</item>
+        <item>Bela Vista - Terminal</item>
+        <item>Terminal - Poço Grande</item>
+        <item>Poço Grande - Terminal</item>
+    </string-array>
+
+</resources>

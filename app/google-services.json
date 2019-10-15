@@ -1,0 +1,93 @@
+{
+  "project_info": {
+    "project_number": "745032180293",
+    "firebase_url": "https://loginfire-23a07.firebaseio.com",
+    "project_id": "loginfire-23a07",
+    "storage_bucket": "loginfire-23a07.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:745032180293:android:a381a7d1704dbe1a42392c",
+        "android_client_info": {
+          "package_name": "com.buson.appmotorista"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "745032180293-pkqvkhh0mqc1guj7lr7gvb50bak2nvlm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.buson.appmotorista",
+            "certificate_hash": "bec76724069a30dd491ec36d7ee0be808b79c941"
+          }
+        },
+        {
+          "client_id": "745032180293-h4d20chb1557b3eksjsmco9b2sipi43l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDo5WI4dGpginAuU1sXs_E4mAd1eYsaGuo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "745032180293-h4d20chb1557b3eksjsmco9b2sipi43l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:745032180293:android:1e78d0e8a21bdccf42392c",
+        "android_client_info": {
+          "package_name": "com.wolfsoft.kcab"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "745032180293-7ju2rnd2sk2gfph16jjapae31ias46qj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wolfsoft.kcab",
+            "certificate_hash": "bec76724069a30dd491ec36d7ee0be808b79c941"
+          }
+        },
+        {
+          "client_id": "745032180293-dhutso452kei4ao7r7g6nmj1ppsc2l8s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wolfsoft.kcab",
+            "certificate_hash": "71090fd665cac97cc89645191c4d393b0c440615"
+          }
+        },
+        {
+          "client_id": "745032180293-h4d20chb1557b3eksjsmco9b2sipi43l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDo5WI4dGpginAuU1sXs_E4mAd1eYsaGuo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "745032180293-h4d20chb1557b3eksjsmco9b2sipi43l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
