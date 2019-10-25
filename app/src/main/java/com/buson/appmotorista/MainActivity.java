@@ -28,6 +28,7 @@ public class MainActivity extends Activity {
 
     private FirebaseAuth mAuth;
     private InterstitialAd mInterstitialAd;
+    Dados dados = new Dados();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class MainActivity extends Activity {
 
         // Instanciando o Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+
 
         // Pegando dados do button
         final Button login = (Button) findViewById(R.id.btn_login);
@@ -94,9 +96,11 @@ public class MainActivity extends Activity {
 
                                 Toast.makeText(MainActivity.this, "Acessando conta", Toast.LENGTH_LONG).show();
 
-                                et_email.setText("");
+                                
                                 et_senha.setText("");
 
+                            }else if (!task.isSuccessful()){
+                                Toast.makeText(MainActivity.this,"Email ou Senha incorretas", Toast.LENGTH_LONG ).show();
                             }
                         }
                     });

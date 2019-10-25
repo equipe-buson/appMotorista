@@ -58,6 +58,7 @@ public class Dados extends FragmentActivity implements OnMapReadyCallback,
     Double log;
     LatLng pontoBlumenau;
     Runnable r;
+    int i =0;
 
     public Double getLag() {
         return lag;
@@ -140,7 +141,7 @@ public class Dados extends FragmentActivity implements OnMapReadyCallback,
         botao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                    i=0;
                 final String linha = spinner.getSelectedItem().toString();
 
                 // Verificando se os dados inseridos estão corretos
@@ -152,9 +153,9 @@ public class Dados extends FragmentActivity implements OnMapReadyCallback,
                     r = new Runnable() {
                         @Override
                         public void run() {
-                            for(int i = 0; i<=i +1; i++) {
+                           do {
                                 try {
-                                    Thread.sleep(500); // 1/2 segundo
+                                    Thread.sleep(100); // 1/2 segundo
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
@@ -165,7 +166,8 @@ public class Dados extends FragmentActivity implements OnMapReadyCallback,
                                 motorista.setLongitude(log);
 
                                 ref.child("motorista").child(motorista.getNumMotorista()).setValue(motorista);
-                            }
+                            }while (i==0);
+                            ref.child("motorista").child(motorista.getNumMotorista()).removeValue();
                         }
                     };
 
@@ -200,11 +202,11 @@ public class Dados extends FragmentActivity implements OnMapReadyCallback,
 
                     etNome.setError("Campo obrigatório");
 
-                }else if (etNumeroOnibus.getText().toString().length()<3){
+                }else if (etNumeroOnibus.getText().toString().length()<=0){
 
                     etNumeroOnibus.setError("Campo obrigatório");
 
-                }else if (etNumeroOnibus.getText().toString().length()<3){
+                }else if (etNumeroOnibus.getText().toString().length()<=3){
 
                     etNumeroOnibus.setError("Número do ônibus deve conter mais de três caracteres");
                 }
@@ -216,7 +218,7 @@ public class Dados extends FragmentActivity implements OnMapReadyCallback,
             @Override
             public void onClick(View v) {
 
-                ref.child("motorista").child(motorista.getNumMotorista()).removeValue();
+                i=1;
 
                 botao_finalizar.setVisibility(View.INVISIBLE);
                 botao.setVisibility(View.VISIBLE);
@@ -229,6 +231,8 @@ public class Dados extends FragmentActivity implements OnMapReadyCallback,
                 etNumeroOnibus.setText("");
 
                 Toast.makeText(Dados.this,"Finalizando",Toast.LENGTH_SHORT).show();
+
+                ref.child("motorista").child(motorista.getNumMotorista()).removeValue();
             }
         });
     }
@@ -259,6 +263,7 @@ public class Dados extends FragmentActivity implements OnMapReadyCallback,
         mGoogleMap.getUiSettings().setMyLocationButtonEnabled( true );
         mGoogleMap.getUiSettings().setZoomControlsEnabled( true );
         mGoogleMap.getUiSettings().setCompassEnabled( true );
+
 
         //Initialize Google Play Services
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -291,8 +296,8 @@ public class Dados extends FragmentActivity implements OnMapReadyCallback,
     @Override
     public void onConnected(Bundle bundle) {
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(500); // 1/2 segundo
-        mLocationRequest.setFastestInterval(500);
+        mLocationRequest.setInterval(100); // 1/2 segundo
+        mLocationRequest.setFastestInterval(100);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         if (ContextCompat.checkSelfPermission(this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
@@ -337,8 +342,8 @@ public class Dados extends FragmentActivity implements OnMapReadyCallback,
                     android.Manifest.permission.ACCESS_FINE_LOCATION)) {
 
                 new AlertDialog.Builder(this)
-                        .setTitle("Location Permission Needed")
-                        .setMessage("This app needs the Location permission, please accept to use location functionality")
+                        .setTitle("Permissão de Localização Necessária")
+                        .setMessage("É necessário acessar a localizaçãoo do seu celular ou dispositivo móvel")
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
