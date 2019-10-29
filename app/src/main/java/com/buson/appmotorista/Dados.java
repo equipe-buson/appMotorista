@@ -2,7 +2,6 @@ package com.buson.appmotorista;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
@@ -31,7 +30,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
@@ -56,8 +54,8 @@ public class Dados extends FragmentActivity implements OnMapReadyCallback,
 
     Double lag;
     Double log;
-    LatLng pontoBlumenau;
-    Runnable r;
+    LatLng pontos;
+    Runnable runnable;
     int i =0;
 
     public Double getLag() {
@@ -79,6 +77,7 @@ public class Dados extends FragmentActivity implements OnMapReadyCallback,
     FirebaseDatabase firebaseDatabase;
     DatabaseReference ref;
 
+    // Inicializa o FireBase
     private void incializarFireBase() {
 
         FirebaseApp.initializeApp(Dados.this);
@@ -92,11 +91,7 @@ public class Dados extends FragmentActivity implements OnMapReadyCallback,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
-        setTitle("Motorista");
-
         //PolyLine Initialize
-//
-        pontosLatLng.add(new LatLng(-26.906440, -49.075242));
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -149,13 +144,13 @@ public class Dados extends FragmentActivity implements OnMapReadyCallback,
 
                     botao.setEnabled(true);
 
-                    // Criando Thread
-                    r = new Runnable() {
+                    // Criando Runnable
+                    runnable = new Runnable() {
                         @Override
                         public void run() {
                            do {
                                 try {
-                                    Thread.sleep(100); // 1/2 segundo
+                                    Thread.sleep(100); //100 milissegundos
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
@@ -172,9 +167,9 @@ public class Dados extends FragmentActivity implements OnMapReadyCallback,
                     };
 
                     // Iniciando a Thread
-                    new Thread(r).start();
+                    new Thread(runnable).start();
 
-                    new Thread(r).interrupt();
+                    new Thread(runnable).interrupt();
 
                     botao.setVisibility(View.INVISIBLE);
                     botao_finalizar.setVisibility(View.VISIBLE);
@@ -239,7 +234,6 @@ public class Dados extends FragmentActivity implements OnMapReadyCallback,
 
     // Google Things and GPS
 
-
     @Override
     protected void onRestart() {
         super.onRestart();
@@ -249,10 +243,7 @@ public class Dados extends FragmentActivity implements OnMapReadyCallback,
     @Override
     public void onPause() {
         super.onPause();
-        //stop location updates when Activity is no longer active
-        if (mFusedLocationClient != null) {
-            mFusedLocationClient.removeLocationUpdates(mLocationCallback);
-        }
+
     }
 
     @Override
@@ -318,10 +309,10 @@ public class Dados extends FragmentActivity implements OnMapReadyCallback,
 
                 LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
-                pontoBlumenau = new LatLng(location.getLatitude(),location.getLongitude());
+                pontos = new LatLng(location.getLatitude(),location.getLongitude());
 
-                lag = pontoBlumenau.latitude;
-                log = pontoBlumenau.longitude;
+                lag = pontos.latitude;
+                log = pontos.longitude;
             }
         }
     };

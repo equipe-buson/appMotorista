@@ -63,23 +63,28 @@ public class MainActivity extends Activity {
                 final String senha = et_senha.getText().toString().trim();
 
                 // Verificando há possibilidade de erros
+                // Se ambos os campos forem vazios
                 if (et_email.getText().toString().length()<=0 && et_senha.getText().toString().length()<=0) {
 
                     et_email.setError("Campo nescessário");
                     et_senha.setError("Campo nescessário");
 
+                // Se o campo "E-mail" for vazio
                 }else  if (et_email.getText().toString().length()<=0){
 
                     et_email.setError("Campo nescessário");
 
+                // Se o campo "Senha" for vazio
                 }else if (et_senha.getText().toString().length()<=0){
 
                     et_senha.setError("Campo nescessário");
 
+                // Se o campo "Senha" conter menos que 8 caracteres
                 }else if (et_senha.getText().toString().length()<8){
 
                     et_senha.setError("Senha deve conter 8 ou mais caracteres");
 
+                // Se o Campo "E-mail" e "Senha" atender todos os requesitos esperados
                 }else if (et_email.getText().toString().length()>0 && et_senha.getText().toString().length()>8) {
 
                     login.setEnabled(true);
@@ -99,7 +104,9 @@ public class MainActivity extends Activity {
                                 
                                 et_senha.setText("");
 
+                                // Se task for diferente de Sucessful
                             }else if (!task.isSuccessful()){
+
                                 Toast.makeText(MainActivity.this,"Email ou Senha incorretas", Toast.LENGTH_LONG ).show();
                             }
                         }
