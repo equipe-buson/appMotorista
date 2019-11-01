@@ -35,7 +35,11 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class Dados extends FragmentActivity implements OnMapReadyCallback,
@@ -56,6 +60,12 @@ public class Dados extends FragmentActivity implements OnMapReadyCallback,
     Double log;
     LatLng pontos;
     Runnable runnable;
+
+    SimpleDateFormat dateFormat_hora = new SimpleDateFormat("HH:mm:ss");
+
+    Date hora;
+    String horas;
+
     int i =0;
 
     public Double getLag() {
@@ -144,6 +154,11 @@ public class Dados extends FragmentActivity implements OnMapReadyCallback,
 
                     botao.setEnabled(true);
 
+                    Calendar c = Calendar.getInstance();
+                    hora = c.getTime();
+
+                    horas = dateFormat_hora.format(hora);
+
                     // Criando Runnable
                     runnable = new Runnable() {
                         @Override
@@ -159,6 +174,7 @@ public class Dados extends FragmentActivity implements OnMapReadyCallback,
                                 motorista.setLinha(linha);
                                 motorista.setLatitude(lag);
                                 motorista.setLongitude(log);
+                                motorista.setHora(horas);
 
                                 ref.child("motorista").child(motorista.getNumMotorista()).setValue(motorista);
                             }while (i==0);

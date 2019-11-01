@@ -11,6 +11,16 @@ public class Mot {
     private Double latitude;
     private  Double longitude;
 
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
+    }
+
+    private String hora;
+
     public Double getLatitude() {
         return latitude;
     }
@@ -34,6 +44,7 @@ public class Mot {
         this.coordenadas = coordenadas;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.hora = hora;
     }
 
     private Array categorias;
