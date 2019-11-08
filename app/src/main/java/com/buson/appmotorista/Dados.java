@@ -116,8 +116,6 @@ public class Dados extends FragmentActivity implements OnMapReadyCallback,
         final String nome = etNome.getText().toString().trim();
         final String numerobus = etNumeroOnibus.getText().toString().trim();
 
-        // Pedindo a permissão de utilizar o GPS para o usuário
-        checkLocationPermission();
         buildGoogleApiClient();
 
         final Spinner spinner = (Spinner) findViewById(R.id.linha);
@@ -217,9 +215,14 @@ public class Dados extends FragmentActivity implements OnMapReadyCallback,
 
                     etNumeroOnibus.setError("Campo obrigatório");
 
-                }else if (etNumeroOnibus.getText().toString().length()<=3){
+                }else if (etNumeroOnibus.getText().toString().length()<3){
 
-                    etNumeroOnibus.setError("Número do ônibus deve conter mais de três caracteres");
+                    etNumeroOnibus.setError("Número do ônibus deve conter três ou mais caracteres");
+
+                }else if(etNumeroOnibus.getText().toString().length()>4){
+
+                    etNumeroOnibus.setError("Número do ônibus não deve conter mais de quatro caracteres");
+
                 }
             }
         });
@@ -282,7 +285,7 @@ public class Dados extends FragmentActivity implements OnMapReadyCallback,
                 mGoogleMap.setMyLocationEnabled(true);
             } else {
                 //Request Location Permission
-                checkLocationPermission();
+
             }
         }
         else {
@@ -339,64 +342,5 @@ public class Dados extends FragmentActivity implements OnMapReadyCallback,
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {}
 
-    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
-
-    private void checkLocationPermission() {
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    android.Manifest.permission.ACCESS_FINE_LOCATION)) {
-
-                new AlertDialog.Builder(this)
-                        .setTitle("Permissão de Localização Necessária")
-                        .setMessage("É necessário acessar a localizaçãoo do seu celular ou dispositivo móvel")
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                //Prompt the user once explanation has been shown
-                                ActivityCompat.requestPermissions(Dados.this,
-                                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-                                        MY_PERMISSIONS_REQUEST_LOCATION );
-                            }
-                        })
-                        .create()
-                        .show();
-            } else {
-                // No argue needed, we can request the permission.
-                ActivityCompat.requestPermissions(this,
-                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_LOCATION );
-            }
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    if (ContextCompat.checkSelfPermission(this,
-                            android.Manifest.permission.ACCESS_FINE_LOCATION)
-                            == PackageManager.PERMISSION_GRANTED) {
-
-                        if (mGoogleApiClient == null) {
-                            buildGoogleApiClient();
-                        }
-                        mGoogleMap.setMyLocationEnabled(true);
-                    }
-
-                } else {
-
-                    Toast.makeText(this, "permission denied", Toast.LENGTH_LONG).show();
-                }
-                return;
-            }
-        }
-    }
 }
 

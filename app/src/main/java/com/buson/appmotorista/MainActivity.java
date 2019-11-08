@@ -1,5 +1,6 @@
 package com.buson.appmotorista;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import androidx.annotation.NonNull;
@@ -11,8 +12,10 @@ import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.textfield.TextInputEditText;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -26,14 +29,30 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends Activity {
 
+    private static final int REQUEST_CODE_PERMISSION = 2;
     private FirebaseAuth mAuth;
     private InterstitialAd mInterstitialAd;
     Dados dados = new Dados();
+
+    String mPermission = Manifest.permission.ACCESS_FINE_LOCATION;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Pedindo a permissão de utilizar o GPS para o usuário
+        try {
+            if (ActivityCompat.checkSelfPermission(this, mPermission) != PackageManager.PERMISSION_GRANTED) {
+
+                ActivityCompat.requestPermissions(this, new String[]{mPermission},
+                        REQUEST_CODE_PERMISSION);
+            }
+        }catch (Exception e){
+
+            e.printStackTrace();
+
+        }
 
         // Instanciando o Firebase Auth
         mAuth = FirebaseAuth.getInstance();
